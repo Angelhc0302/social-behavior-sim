@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Behavior Simulator</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0}
+    header{background:linear-gradient(135deg,#1e40af,#7c3aed);padding:2rem;text-align:center}
+    header h1{font-size:2rem;color:white}
+    header p{color:#bfdbfe;margin-top:.5rem}
+    .badge{display:inline-block;background:#1d4ed8;color:#bfdbfe;
+            padding:.2rem .7rem;border-radius:999px;font-size:.75rem;margin:.3rem}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:1rem;padding:2rem}
+    .stat{background:#1e293b;border-radius:12px;padding:1.5rem;
+           border-left:4px solid #3b82f6}
+    .stat .val{font-size:2rem;font-weight:bold;color:#60a5fa}
+    .stat .lbl{color:#94a3b8;font-size:.9rem;margin-top:.3rem}
+    .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(450px,1fr));
+             gap:2rem;padding:0 2rem 2rem}
+    .chart{background:#1e293b;border-radius:12px;padding:1.5rem}
+    .chart h3{color:#93c5fd;margin-bottom:1rem}
+    footer{text-align:center;padding:2rem;color:#475569;font-size:.8rem}
+  </style>
+</head>
+<body>
+<header>
+  <h1> Social Behavior Simulator</h1>
+  <p>Análisis de patrones de comportamiento — Canal @telegram</p>
+  <span class="badge"> Solo datos públicos</span>
+  <span class="badge"> Sin cuentas reales</span>
+  <span class="badge"> Proyecto educativo</span>
+</header>
+
+<div class="stats">
+  <div class="stat">
+    <div class="val">499</div>
+    <div class="lbl">Mensajes Analizados</div>
+  </div>
+  <div class="stat">
+    <div class="val">102</div>
+    <div class="lbl">Autores Únicos</div>
+  </div>
+  <div class="stat">
+    <div class="val">21:00</div>
+    <div class="lbl">Hora Pico de Actividad</div>
+  </div>
+  <div class="stat">
+    <div class="val">26.3</div>
+    <div class="lbl">Promedio Mensajes/Día</div>
+  </div>
+</div>
+
+<div class="charts">
+  <div class="chart">
+    <h3>🕐 Actividad por Hora del Día</h3>
+    <canvas id="hourlyChart"></canvas>
+  </div>
+  <div class="chart">
+    <h3> Actividad por Día de la Semana</h3>
+    <canvas id="dailyChart"></canvas>
+  </div>
+</div>
+
+<footer>
+  <p>Proyecto educativo — Datos: Telegram API pública</p>
+  <p>Generado: 2026-02-19 19:15</p>
+</footer>
+
+<script>
+const data = {"hourly": {"labels": ["0:00", "1:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"], "data": [7, 2, 5, 17, 6, 12, 16, 11, 9, 22, 17, 28, 21, 34, 56, 21, 15, 32, 38, 42, 76, 7, 5]}, "daily": {"labels": ["Lunes", "Martes", "Mi\u00e9rcoles", "Jueves", "Viernes", "S\u00e1bado", "Domingo"], "data": [63, 55, 127, 60, 69, 50, 75]}};
+
+new Chart(document.getElementById('hourlyChart'), {
+  type: 'bar',
+  data: {
+    labels: data.hourly.labels,
+    datasets: [{
+      label: 'Mensajes',
+      data: data.hourly.data,
+      backgroundColor: 'rgba(99,102,241,0.8)',
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {legend: {labels: {color:'#e2e8f0'}}},
+    scales: {
+      x: {ticks: {color:'#94a3b8'}, grid: {color:'#334155'}},
+      y: {ticks: {color:'#94a3b8'}, grid: {color:'#334155'}}
+    }
+  }
+});
+
+new Chart(document.getElementById('dailyChart'), {
+  type: 'bar',
+  data: {
+    labels: data.daily.labels,
+    datasets: [{
+      label: 'Mensajes',
+      data: data.daily.data,
+      backgroundColor: 'rgba(16,185,129,0.8)',
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {legend: {labels: {color:'#e2e8f0'}}},
+    scales: {
+      x: {ticks: {color:'#94a3b8'}, grid: {color:'#334155'}},
+      y: {ticks: {color:'#94a3b8'}, grid: {color:'#334155'}}
+    }
+  }
+});
+</script>
+</body>
+</html>
